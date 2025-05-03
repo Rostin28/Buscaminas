@@ -24,7 +24,7 @@ for (let row = 0; row < size; row++) {
   }
 }
 
-// Revelar celda (manual)
+// Revelar celda 
 function revealCell(row, col) {
   const cell = cells[row * size + col];
   if (cell.classList.contains("revealed")) return;
@@ -100,7 +100,7 @@ startBtn.addEventListener("click", () => {
   registrarMovimiento();
 });
 
-// Lógica del resolvedor (siguiente movimiento) - VERSIÓN EXPERTO
+// Lógica del resolvedor 
 nextMoveBtn.addEventListener("click", () => {
   if (verificarVictoria()) return;
   
@@ -117,7 +117,7 @@ nextMoveBtn.addEventListener("click", () => {
     return;
   }
 
-  // PRIORIDAD 2: Patrones avanzados de minas (incluye detección de 8)
+  // PRIORIDAD 2: Patrones avanzados de minas 
   const patronesMina = detectarPatronesAvanzados();
   if (patronesMina.length > 0) {
     marcarMinas(patronesMina);
@@ -155,7 +155,6 @@ nextMoveBtn.addEventListener("click", () => {
   mostrarMensaje("No se detectaron movimientos obvios. Revele más celdas manualmente.");
 });
 
-// ===== FUNCIONES AUXILIARES =====
 function getVecinos(row, col) {
   const vecinos = [];
   for (let r = Math.max(0, row - 1); r <= Math.min(size - 1, row + 1); r++) {
@@ -188,7 +187,7 @@ function marcarMinas(minas) {
   messageDiv.textContent = `Minas marcadas: ${minas.length}`;
 }
 
-// ===== ALGORITMOS AVANZADOS =====
+
 function expandirDesdeCerosAvanzado() {
   const celdasCero = cells.filter(c => c.classList.contains("revealed") && c.dataset.value === "0");
   
@@ -216,7 +215,7 @@ function expandirDesdeCerosAvanzado() {
 function detectarPatronesAvanzados() {
   const minasDetectadas = [];
   
-  // Buscar celdas con valor 8 (todas las circundantes son minas)
+  // Buscar celdas con valor 8 
   cells.forEach(cell => {
     if (cell.classList.contains("revealed") && cell.dataset.value === "8") {
       const row = +cell.dataset.row;
@@ -379,14 +378,12 @@ function analizarFronteras() {
           menorProbabilidad = prob;
           const [r, c] = key.split(',').map(Number);
           
-          // --- CORRECCIÓN APLICADA AQUÍ ---
           const total = Object.values(probabilidades).reduce((a, b) => a + b, 0);
           let probabilidadCalculada = 0;
           
           if (total !== 0) {
             probabilidadCalculada = (prob / total) * 100;
           }
-          // --- FIN DE CORRECCIÓN ---
           
           mejorCelda = {
             celda: cells[r * size + c],
